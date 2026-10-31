@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EcoLearn – Sustainable Living Community</title>
+<meta name="description" content="Learn sustainable living through tutorials, track your carbon footprint and join an eco community.">
+<style>
+:root{--g:#2e7d32;--g2:#66bb6a;--dk:#1b3a24;--bg:#f4faf4;--card:#fff;--tx:#23332a;--mut:#667a6d;--ac:#f9a825;--r:16px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--tx);line-height:1.6}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1150px;margin:auto;padding:0 20px}
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);box-shadow:0 2px 12px #0001}
+nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-weight:800;font-size:1.4rem;color:var(--g)}
+.links{display:flex;gap:6px;align-items:center}
+.links a{padding:8px 12px;border-radius:8px;font-weight:500}
+.links a:hover{background:#e6f4e7}
+#burger{display:none;background:none;border:0;font-size:1.6rem;cursor:pointer}
+.btn{background:var(--g);color:#fff;border:0;padding:10px 20px;border-radius:30px;font-weight:600;cursor:pointer;font-size:.95rem;transition:.2s}
+.btn:hover{background:var(--dk);transform:translateY(-2px)}
+.btn.o{background:transparent;color:var(--g);border:2px solid var(--g)}
+.btn.o:hover{background:var(--g);color:#fff}
+.btn.sm{padding:6px 14px;font-size:.85rem}.btn.red{background:#c62828}
+.hero{background:linear-gradient(135deg,rgba(27,58,36,.92),rgba(46,125,50,.85)),url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1400') center/cover;color:#fff;padding:90px 0 80px;text-align:center}
+.hero h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.2;margin-bottom:16px}
+.hero p{max-width:640px;margin:0 auto 28px;font-size:1.1rem;opacity:.95}
+.hero .btn{margin:6px}
+.hero .btn.o{color:#fff;border-color:#fff}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-top:-40px;position:relative}
+.stat{background:var(--card);padding:22px;border-radius:var(--r);text-align:center;box-shadow:0 6px 20px #0001}
+.stat b{display:block;font-size:2rem;color:var(--g)}
+section{padding:70px 0}
+h2{font-size:2rem;color:var(--dk);margin-bottom:8px}
+.sub{color:var(--mut);margin-bottom:28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
+.card{background:var(--card);border-radius:var(--r);box-shadow:0 4px 16px #0001;overflow:hidden;transition:.25s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-6px);box-shadow:0 10px 26px #0002}
+.thumb{height:120px;display:flex;align-items:center;justify-content:center;font-size:3.4rem;background:linear-gradient(135deg,#c8e6c9,#a5d6a7)}
+.cb{padding:18px;display:flex;flex-direction:column;flex:1;gap:8px}
+.tag{display:inline-block;background:#e8f5e9;color:var(--g);font-size:.75rem;font-weight:700;padding:3px 10px;border-radius:20px;width:fit-content}
+.mut{color:var(--mut);font-size:.9rem}
+.cb .btn{margin-top:auto}
+.bar{background:#e0e0e0;border-radius:10px;height:10px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--g2),var(--g));transition:.4s}
+.tools{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+input,select,textarea{padding:11px 14px;border:1.5px solid #cfd8d0;border-radius:10px;font:inherit;width:100%;background:#fff}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--g2);border-color:var(--g2)}
+.tools input{flex:2;min-width:180px}.tools select{flex:1;min-width:140px}
+.alt{background:#e8f3e8}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.panel{background:var(--card);padding:26px;border-radius:var(--r);box-shadow:0 4px 16px #0001}
+.panel label{display:block;margin:14px 0 4px;font-weight:600;font-size:.92rem}
+input[type=range]{padding:0;accent-color:var(--g)}
+.res{text-align:center}
+.res .big{font-size:3rem;font-weight:800;color:var(--g)}
+.post{background:var(--card);padding:16px 20px;border-radius:12px;margin-bottom:12px;box-shadow:0 2px 10px #0001}
+.post small{color:var(--mut)}
+.post .acts{margin-top:8px;display:flex;gap:8px}
+.tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:10px}
+.tip{background:#fff;padding:18px;border-radius:14px;border-left:5px solid var(--g2);box-shadow:0 2px 10px #0001}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #eee;font-size:.92rem}
+th{background:var(--g);color:#fff}
+.tw{overflow-x:auto}
+.modal{position:fixed;inset:0;background:#0007;display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+.modal.on{display:flex}
+.mbox{background:#fff;padding:28px;border-radius:var(--r);width:100%;max-width:400px;max-height:92vh;overflow:auto}
+.mbox h3{margin-bottom:6px;color:var(--dk)}
+.tabs{display:flex;gap:8px;margin:12px 0}
+.tabs button{flex:1;padding:8px;border:0;border-radius:8px;background:#e8f5e9;cursor:pointer;font-weight:600}
+.tabs button.on{background:var(--g);color:#fff}
+.note{background:#fff8e1;border-left:4px solid var(--ac);padding:10px 14px;border-radius:8px;font-size:.85rem;margin-top:12px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--dk);color:#fff;padding:12px 24px;border-radius:30px;transition:.3s;z-index:200}
+.toast.on{transform:translateX(-50%)}
+.role{display:inline-block;background:var(--ac);color:#222;padding:2px 12px;border-radius:20px;font-weight:700;font-size:.8rem;text-transform:capitalize}
+footer{background:var(--dk);color:#cfe5d2;text-align:center;padding:34px 20px}
+@media(max-width:800px){.two{grid-template-columns:1fr}#burger{display:block}
+.links{display:none;position:absolute;top:64px;left:0;right:0;background:#fff;flex-direction:column;padding:12px;box-shadow:0 8px 14px #0002}
+.links.on{display:flex}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><nav>
+<a href="#home" class="logo">🌿 EcoLearn</a>
+<button id="burger" aria-label="Menu">☰</button>
+<div class="links" id="links">
+<a href="#courses">Courses</a><a href="#calc">Footprint</a><a href="#community">Community</a><a href="#dash">Dashboard</a>
+<button class="btn sm" id="authBtn">Login / Register</button>
+</div></nav></div></header>
+
+<div class="hero" id="home"><div class="wrap">
+<h1>Learn. Live Green.<br>Grow Together. 🌍</h1>
+<p>A role-based online learning community for sustainable living – take tutorials, measure your carbon footprint and share eco-ideas with people who care.</p>
+<a class="btn" href="#courses">Explore Courses</a><a class="btn o" href="#calc">Check My Footprint</a>
+</div></div>
+
+<div class="wrap"><div class="stats" id="stats"></div></div>
+
+<section id="courses"><div class="wrap">
+<h2>📚 Sustainable Living Tutorials</h2><p class="sub">Pick a course, enroll and track your progress lesson by lesson.</p>
+<div class="tools"><input id="q" placeholder="🔍 Search courses..."><select id="cat"><option value="">All Categories</option></select></div>
+<div class="grid" id="courseGrid"></div>
+</div></section>
+
+<section class="alt" id="calc"><div class="wrap">
+<h2>👣 Carbon Footprint Calculator</h2><p class="sub">Estimate your yearly CO₂ emissions and get personal tips.</p>
+<div class="two">
+<div class="panel">
+<label>Travel by car/bike (km per week): <b id="v1">100</b></label><input type="range" id="c1" min="0" max="600" value="100">
+<label>Electricity use (kWh per month): <b id="v2">150</b></label><input type="range" id="c2" min="0" max="800" value="150">
+<label>Meat meals per week: <b id="v3">7</b></label><input type="range" id="c3" min="0" max="21" value="7">
+<label>Do you recycle regularly?</label><select id="c4"><option value="1">Yes</option><option value="0">No</option></select>
+</div>
+<div class="panel res"><p class="mut">Your estimated footprint</p><div class="big" id="total">0</div><p class="mut">tonnes CO₂ / year (India avg ≈ 1.9)</p>
+<div class="bar" style="margin:16px 0"><i id="tbar"></i></div><p id="verdict" style="font-weight:600"></p><div id="advice" class="mut" style="margin-top:10px"></div></div>
+</div></div></section>
+
+<section id="tipsec"><div class="wrap"><h2>💡 Daily Eco Tips</h2><p class="sub">Small habits, big impact.</p>
+<div class="tips" id="tips"></div></div></section>
+
+<section class="alt" id="community"><div class="wrap">
+<h2>🤝 Community Board</h2><p class="sub">Share ideas, projects and success stories.</p>
+<div class="two"><div class="panel"><h3>Share a post</h3>
+<label style="display:block;margin:12px 0 4px;font-weight:600">Category</label><select id="pcat"><option>Idea</option><option>Project</option><option>Question</option><option>Success Story</option></select>
+<label style="display:block;margin:12px 0 4px;font-weight:600">Message</label><textarea id="ptext" rows="4" placeholder="What's on your mind?"></textarea>
+<button class="btn" id="postBtn" style="margin-top:14px">Post</button></div>
+<div id="feed"></div></div>
+</div></section>
+
+<section id="dash"><div class="wrap"><h2>🧑‍💻 My Dashboard</h2><p class="sub">Role-based view for Learner, Instructor and Admin.</p><div id="dashBody"></div></div></section>
+
+<footer><b>🌿 EcoLearn – Sustainable Living Community</b><p style="margin-top:6px;font-size:.9rem">Built with HTML, CSS &amp; JavaScript • CA1 Project (26271) • © 2026</p></footer>
+
+<div class="modal" id="modal"><div class="mbox">
+<h3 id="mt">Welcome 🌱</h3>
+<div class="tabs"><button id="tL" class="on">Login</button><button id="tR">Register</button></div>
+<div id="nameRow" style="display:none"><label>Full name</label><input id="aname"></div>
+<label style="display:block;margin-top:10px">Email</label><input id="aemail" type="email">
+<label style="display:block;margin-top:10px">Password</label><input id="apass" type="password">
+<div id="roleRow" style="display:none"><label style="display:block;margin-top:10px">I want to join as</label><select id="arole"><option value="learner">Learner</option><option value="instructor">Instructor</option></select></div>
+<button class="btn" id="go" style="width:100%;margin-top:18px">Login</button>
+<button class="btn o" id="cls" style="width:100%;margin-top:8px">Cancel</button>
+<div class="note">Demo admin → <b>admin@eco.com</b> / <b>admin123</b></div>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}};
+const sv=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let users=ld('users',[{name:'Admin',email:'admin@eco.com',pass:'admin123',role:'admin'}]);
+let courses=ld('courses',[
+{id:1,t:'Zero Waste Living',c:'Waste',e:'♻️',n:5,by:'Dr. Meera Sharma',d:'Reduce, reuse and rethink your household waste step by step.'},
+{id:2,t:'Solar Energy at Home',c:'Energy',e:'☀️',n:6,by:'Arjun Singh',d:'Understand rooftop solar, savings and simple energy-saving habits.'},
+{id:3,t:'Organic Kitchen Gardening',c:'Food',e:'🥬',n:5,by:'Simran Kaur',d:'Grow vegetables and herbs in small spaces without chemicals.'},
+{id:4,t:'Rainwater & Water Saving',c:'Water',e:'💧',n:4,by:'Rohit Verma',d:'Harvest rainwater and cut daily water use at home and campus.'},
+{id:5,t:'Sustainable Fashion',c:'Lifestyle',e:'👕',n:4,by:'Neha Gupta',d:'Thrift, upcycle and choose clothes that respect the planet.'},
+{id:6,t:'Composting Basics',c:'Waste',e:'🍂',n:3,by:'Dr. Meera Sharma',d:'Turn kitchen waste into rich compost in just a few weeks.'}]);
+let posts=ld('posts',[
+{id:1,u:'Simran',r:'learner',cat:'Success Story',t:'Started composting at my hostel – saved 2 kg of waste every week! 🍃',l:4,at:'Today'},
+{id:2,u:'Arjun Singh',r:'instructor',cat:'Idea',t:'Let us organise a campus cycling day. Who is in?',l:7,at:'Today'}]);
+let enr=ld('enr',{}),me=ld('me',null);
+const tips=['🚰 Carry a reusable bottle – skip 150+ plastic bottles a year.','💡 Switch to LED bulbs; they use ~80% less energy.','🚌 Prefer walking, cycling or public transport for short trips.','🛍️ Say no to single-use plastic bags – carry a cloth bag.','🌱 Plant a tree or a balcony herb garden.','🔌 Unplug chargers & devices when not in use.'];
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2400)};
+const saveAll=()=>{sv('users',users);sv('courses',courses);sv('posts',posts);sv('enr',enr);sv('me',me)};
+
+/* ---------- Auth ---------- */
+let mode='L';
+function setMode(m){mode=m;$('#tL').classList.toggle('on',m=='L');$('#tR').classList.toggle('on',m=='R');
+$('#nameRow').style.display=$('#roleRow').style.display=m=='R'?'block':'none';$('#go').textContent=m=='L'?'Login':'Create Account'}
+$('#tL').onclick=()=>setMode('L');$('#tR').onclick=()=>setMode('R');$('#cls').onclick=()=>$('#modal').classList.remove('on');
+$('#authBtn').onclick=()=>{if(me){me=null;saveAll();toast('Logged out');renderAll()}else $('#modal').classList.add('on')};
+$('#go').onclick=()=>{
+const email=$('#aemail').value.trim().toLowerCase(),pass=$('#apass').value;
+if(!/^\S+@\S+\.\S+$/.test(email))return toast('Enter a valid email');
+if(pass.length<6)return toast('Password needs 6+ characters');
+if(mode=='R'){const name=$('#aname').value.trim();if(!name)return toast('Enter your name');
+if(users.some(u=>u.email==email))return toast('Email already registered');
+me={name,email,pass,role:$('#arole').value};users.push(me)}
+else{const u=users.find(u=>u.email==email&&u.pass==pass);if(!u)return toast('Invalid email or password');me=u}
+saveAll();$('#modal').classList.remove('on');toast('Welcome, '+me.name+'! 🌿');renderAll();location.hash='#dash'};
+
+/* ---------- Courses ---------- */
+function renderCourses(){
+const cats=[...new Set(courses.map(c=>c.c))],sel=$('#cat'),cur=sel.value;
+sel.innerHTML='<option value="">All Categories</option>'+cats.map(c=>`<option ${c==cur?'selected':''}>${esc(c)}</option>`).join('');
+const q=$('#q').value.toLowerCase(),f=sel.value;
+const list=courses.filter(c=>(!f||c.c==f)&&(c.t+c.d+c.by).toLowerCase().includes(q));
+$('#courseGrid').innerHTML=list.length?list.map(c=>{const p=me&&enr[me.email]&&enr[me.email][c.id];const pr=p!=null?Math.round(p/c.n*100):null;
+return `<div class="card"><div class="thumb">${c.e}</div><div class="cb"><span class="tag">${esc(c.c)}</span><h3>${esc(c.t)}</h3><p class="mut">${esc(c.d)}</p><p class="mut">👤 ${esc(c.by)} • ${c.n} lessons</p>
+${pr!=null?`<div class="bar"><i style="width:${pr}%"></i></div><small>${pr}% complete</small>`:''}
+<button class="btn sm" onclick="enroll(${c.id})">${pr==null?'Enroll Now':pr==100?'✅ Completed':'Continue'}</button></div></div>`}).join(''):'<p class="mut">No courses found.</p>'}
+function enroll(id){if(!me){$('#modal').classList.add('on');return toast('Please login first')}
+if(me.role!='learner')return toast('Only learners can enroll – use a learner account');
+enr[me.email]=enr[me.email]||{};if(enr[me.email][id]==null){enr[me.email][id]=0;toast('Enrolled! 🎉')}else toast('Open your dashboard to continue');
+saveAll();renderAll()}
+$('#q').oninput=renderCourses;$('#cat').onchange=renderCourses;
+
+/* ---------- Calculator ---------- */
+function calc(){
+const a=+$('#c1').value,b=+$('#c2').value,m=+$('#c3').value,r=+$('#c4').value;
+$('#v1').textContent=a;$('#v2').textContent=b;$('#v3').textContent=m;
+const t=(a*52*0.19+b*12*0.82+m*52*2.5+(r?0:300))/1000;
+$('#total').textContent=t.toFixed(2);$('#tbar').style.width=Math.min(100,t/6*100)+'%';
+$('#verdict').textContent=t<1.9?'🌟 Great! Below the average.':t<4?'👍 Moderate – you can improve.':'⚠️ High footprint – act now!';
+const adv=[];if(a>150)adv.push('Try carpooling or cycling');if(b>200)adv.push('Cut power use / go solar');if(m>8)adv.push('Add plant-based meals');if(!r)adv.push('Start recycling');
+$('#advice').textContent=adv.length?'Tips: '+adv.join(' • '):'Keep up the great habits!'}
+$$('#calc input,#calc select').forEach(e=>e.oninput=calc);
+
+/* ---------- Community ---------- */
+function renderFeed(){
+$('#feed').innerHTML=posts.slice().reverse().map(p=>`<div class="post"><b>${esc(p.u)}</b> <span class="role">${p.r}</span> <span class="tag">${esc(p.cat)}</span><p>${esc(p.t)}</p><small>${esc(p.at)}</small>
+<div class="acts"><button class="btn o sm" onclick="like(${p.id})">👍 ${p.l}</button>${me&&me.role=='admin'?`<button class="btn red sm" onclick="delPost(${p.id})">Delete</button>`:''}</div></div>`).join('')}
+$('#postBtn').onclick=()=>{if(!me){$('#modal').classList.add('on');return toast('Login to post')}
+const t=$('#ptext').value.trim();if(t.length<5)return toast('Write at least 5 characters');
+posts.push({id:Date.now(),u:me.name,r:me.role,cat:$('#pcat').value,t,l:0,at:new Date().toLocaleString()});$('#ptext').value='';saveAll();renderAll();toast('Posted! 🌱')};
+const like=id=>{posts.find(p=>p.id==id).l++;saveAll();renderFeed()};
+const delPost=id=>{posts=posts.filter(p=>p.id!=id);saveAll();renderAll()};
+
+/* ---------- Dashboard (role based) ---------- */
+function renderDash(){
+const d=$('#dashBody');
+if(!me){d.innerHTML='<div class="panel">🔒 Please <b>login or register</b> to see your personalised dashboard.</div>';return}
+let h=`<div class="panel" style="margin-bottom:20px">Hello, <b>${esc(me.name)}</b> <span class="role">${me.role}</span></div>`;
+if(me.role=='learner'){const my=enr[me.email]||{},ids=Object.keys(my);
+h+=ids.length?'<div class="grid">'+ids.map(id=>{const c=courses.find(c=>c.id==id);if(!c)return'';const pr=Math.round(my[id]/c.n*100);
+return `<div class="card"><div class="thumb">${c.e}</div><div class="cb"><h3>${esc(c.t)}</h3><div class="bar"><i style="width:${pr}%"></i></div><small>Lesson ${my[id]} of ${c.n} • ${pr}%</small>
+${pr<100?`<button class="btn sm" onclick="nextLesson(${id})">Complete next lesson</button>`:'<span class="tag">🏆 Certificate earned</span>'}</div></div>`}).join('')+'</div>':'<div class="panel">You have not enrolled yet. Browse the <a href="#courses"><b>courses</b></a>!</div>'}
+if(me.role=='instructor'){const mine=courses.filter(c=>c.by==me.name);
+h+=`<div class="two"><div class="panel"><h3>➕ Add a new course</h3>
+<label>Title</label><input id="nt"><label>Category</label><input id="ncat" placeholder="e.g. Energy">
+<label>Description</label><textarea id="nd" rows="3"></textarea><label>Number of lessons</label><input id="nn" type="number" min="1" max="20" value="4">
+<button class="btn" style="margin-top:14px" onclick="addCourse()">Publish Course</button></div>
+<div><h3>📘 My courses</h3>${mine.length?mine.map(c=>`<div class="post"><b>${c.e} ${esc(c.t)}</b><br><small>${Object.values(enr).filter(e=>e[c.id]!=null).length} learner(s) enrolled</small><div class="acts"><button class="btn red sm" onclick="delCourse(${c.id})">Remove</button></div></div>`).join(''):'<p class="mut">No courses yet.</p>'}</div></div>`}
+if(me.role=='admin'){const L=users.filter(u=>u.role=='learner').length,I=users.filter(u=>u.role=='instructor').length,E=Object.values(enr).reduce((s,e)=>s+Object.keys(e).length,0);
+h+=`<div class="grid" style="margin-bottom:22px"><div class="stat"><b>${users.length}</b>Total users</div><div class="stat"><b>${L} / ${I}</b>Learners / Instructors</div><div class="stat"><b>${courses.length}</b>Courses</div><div class="stat"><b>${E}</b>Enrollments</div></div>
+<h3>👥 Users</h3><div class="tw"><table><tr><th>Name</th><th>Email</th><th>Role</th><th></th></tr>${users.map(u=>`<tr><td>${esc(u.name)}</td><td>${esc(u.email)}</td><td>${u.role}</td><td>${u.role!='admin'?`<button class="btn red sm" onclick="delUser('${esc(u.email)}')">Remove</button>`:''}</td></tr>`).join('')}</table></div>
+<h3 style="margin-top:22px">📘 Courses</h3><div class="tw"><table><tr><th>Title</th><th>Instructor</th><th></th></tr>${courses.map(c=>`<tr><td>${esc(c.t)}</td><td>${esc(c.by)}</td><td><button class="btn red sm" onclick="delCourse(${c.id})">Remove</button></td></tr>`).join('')}</table></div>`}
+d.innerHTML=h}
+function nextLesson(id){const c=courses.find(c=>c.id==id);if(enr[me.email][id]<c.n){enr[me.email][id]++;toast(enr[me.email][id]==c.n?'🏆 Course completed!':'Lesson completed ✅')}saveAll();renderAll()}
+function addCourse(){const t=$('#nt').value.trim(),c=$('#ncat').value.trim(),d=$('#nd').value.trim(),n=+$('#nn').value;
+if(!t||!c||!d||n<1)return toast('Fill all fields');
+courses.push({id:Date.now(),t,c,e:'🌱',n,by:me.name,d});saveAll();renderAll();toast('Course published! 🎉')}
+const delCourse=id=>{if(confirm('Remove this course?')){courses=courses.filter(c=>c.id!=id);saveAll();renderAll()}};
+const delUser=e=>{if(confirm('Remove this user?')){users=users.filter(u=>u.email!=e);delete enr[e];saveAll();renderAll()}};
+
+function renderAll(){
+$('#authBtn').textContent=me?'Logout ('+me.name.split(' ')[0]+')':'Login / Register';
+$('#stats').innerHTML=[[courses.length,'Courses'],[users.length,'Members'],[posts.length,'Community Posts'],['6','Eco Tips']].map(s=>`<div class="stat"><b>${s[0]}</b>${s[1]}</div>`).join('');
+renderCourses();renderFeed();renderDash()}
+$('#burger').onclick=()=>$('#links').classList.toggle('on');
+$$('#links a').forEach(a=>a.onclick=()=>$('#links').classList.remove('on'));
+$('#tips').innerHTML=tips.map(t=>`<div class="tip">${t}</div>`).join('');
+calc();renderAll();
+</script>
+</body>
+</html>
